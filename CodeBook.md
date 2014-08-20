@@ -8,12 +8,12 @@ DATA FORMAT: All data was collected in text format and then manipulated in R as 
 
 ___________________________________________________________________
 VARIABLE: PURPOSE  
-VARIABLE-TYPE: Character(5) 
+VARIABLE-TYPE: Character(5)   
 VARIABLE DESCRIPTION: Purpose of data being used for  
 ALLOWABLE VALUES: "Test" or "Train"
 
 
-VARIABLE: VOLUNTEER 
+VARIABLE: VOLUNTEER  
 VARIABLE-TYPE: Integer(2)  
 VARIABLE DESCRIPTION: Volunteer ID  
 ALLOWABLE VALUES: 1 - 30
@@ -32,6 +32,6 @@ ALLOWABLE VALUES: Words containing 'mean()' and 'std()'
 
 
 VARIABLE: VALUE  
-VARIABLE-TYPE: Characters(15) 
-VARIABLE DESCRIPTION: Measured and derived values from the volunteers performing activities  
+VARIABLE-TYPE: Characters(15)   
+VARIABLE DESCRIPTION: Measured and derived values from the volunteers performing activities   
 ALLOWABLE VALUES: 7 decimal numerical values expressed in exponential
