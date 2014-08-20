@@ -38,12 +38,16 @@ featuredesc_std <- grep(pattern="std()", fixed=TRUE, all_featuredesc$V2)
 featuredesc <- sort(c(featuredesc_mean, featuredesc_std))
 
 # Rename measurement variables by using more descriptive labels. This is 
-# done using a For-loop. 
+# done using a For-loop. At the same, do some cleaning to remove character
+# '()' from the word. Note that since '()' is a special character, must use
+# double back-slash '\\' to escape th '()' characters
 for (i in 1:length(measurements)) {
-    colnames(measurements)[i] <- all_featuredesc[i,2]
+    featr <- all_featuredesc[i,2]    
+    featr <- sub("\\()", "", featr)
+    colnames(measurements)[i] <- featr
 }
 
-# Subset measurements containing 'mean()' and 'std()' by
+# Subset measurements containing 'mean' and 'std' by
 # passing in vector 'featuredesc'
 measurements <- measurements[,c(featuredesc)]
 
@@ -51,22 +55,22 @@ measurements <- measurements[,c(featuredesc)]
 # the same number of rows. To combine all 3 into one table, use 
 # cbind(). First join table 'volunteers' with table 'activities' (applying
 # subsetting so that only column 'Desc' in column 2 is included) in the binding.
-# Rename the first 2 columns of the joined table as 'Volunteers' and 'Activities'.
+# Rename the first 2 columns of the joined table as 'volunteer' and 'activity'.
 # Then, join this table with table 'measurements'. The final
 # table will be named test_data, since this dataset is for TEST folder.
 test_data <- cbind(volunteers, activities[,2])
-names(test_data) <- c("Volunteer", "Activity")
+names(test_data) <- c("volunteer", "activity")
 test_data <- cbind(test_data, measurements)
 
 # Add another variable named 'Purpose' to indicate this belong to Test folder
 test_data <- cbind("Test", test_data)
-colnames(test_data)[1] <- "Purpose"
+colnames(test_data)[1] <- "purpose"
 
 # Remove unwanted dataset
 rm(volunteers, activities, measurements)
 
-#=======================================================================
-# PART II: The 2nd part of this script deals with getting the dataset from
+#==============================PART II=========================================
+# The 2nd part of this script deals with getting the dataset from
 # 'Train' folder. Read in the first table consisting of volunteers.
 # This is a single column table with 7352 rows 
 volunteers <- read.table("./data/UCI_HAR/train/subject_train.txt", sep="")
@@ -92,13 +96,17 @@ activities[activities$V1==6,]$Desc <- "Laying"
 measurements <- read.table("./data/UCI_HAR/train/X_train.txt",
                            colClasses="character", sep="")
 
-# Rename measurement variables for more descriptive labels by using a 
-# for loop. 
+# Rename measurement variables by using more descriptive labels. This is 
+# done using a For-loop. At the same, do some cleaning to remove character
+# '()' from the word. Note that since '()' is a special character, must use
+# double back-slash '\\' to escape th '()' characters
 for (i in 1:length(measurements)) {
-    colnames(measurements)[i] <- all_featuredesc[i,2]
+    featr <- all_featuredesc[i,2]    
+    featr <- sub("\\()", "", featr)
+    colnames(measurements)[i] <- featr
 }
 
-# Subset measurements containing 'mean()' and 'std()' by
+# Subset measurements containing 'mean' and 'std' by
 # passing in vector 'featuredesc'
 measurements <- measurements[,c(featuredesc)]
 
@@ -106,16 +114,16 @@ measurements <- measurements[,c(featuredesc)]
 # the same number of rows. To combine all 3 into one table, use 
 # cbind(). First join table 'volunteers' with table 'activities' (applying
 # subsetting so that only column 'Desc' in column 2 is included) in the binding.
-# Rename the first 2 columns as 'Volunteers' and 'Activities'.
+# Rename the first 2 columns as 'volunteer' and 'activity'.
 # Then, join this table with table 'measurements'. The final
 # table will be named train_data, since this dataset is for TRAIN folder.
 train_data <- cbind(volunteers, activities[,2])
-names(train_data) <- c("Volunteer", "Activity")
+names(train_data) <- c("volunteer", "activity")
 train_data <- cbind(train_data, measurements)
 
 # Cbind() another column named 'Purpose' to indicate this belongs to Train folder
 train_data <- cbind("Train", train_data)
-colnames(train_data)[1] <- "Purpose"
+colnames(train_data)[1] <- "purpose"
 
 # Rbind() both test_data and train_data tables into a final table called 'data',
 # as per assignment requirement
@@ -123,8 +131,8 @@ data <- rbind(test_data, train_data)
 
 # Melt dataset down to form tiny data
 library(reshape2)
-tidydata <- melt(data, id=c("Purpose", "Volunteer", "Activity"))
-names(tidydata)[4:5] <- c("Measurement", "Value")
+tidydata <- melt(data, id=c("purpose", "volunteer", "activity"))
+names(tidydata)[4:5] <- c("measurement", "value")
 
 # Output data as text file
 write.table(tidydata, "./data/UCI_HAR/tinydata.txt", row.names=FALSE, sep="")

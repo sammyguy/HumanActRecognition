@@ -32,7 +32,7 @@ The data.table 'measurements' contained 561 columns and they clearly represented
 
 That is, for this 'fBodyBodyGyroJerkMag' measurement, feature no. 542 is the required mean value and the R-script should just extract this feature and not the one containing 'meanFreq'. To achieve this, the attribute 'fixed=TRUE' must be included in the grep() function.
 
-Once the required columns containing mean and std were extracted, they were renamed to more descriptive words instead of just V1, V2, etc… I have decided to simply use the labels as provided in the features.txt file. In my opinion, these words are already rather self-explanatory. Any attempt to come up with alternative labels would not provide addition information.
+Once the required columns containing mean and std were extracted, they were renamed to more descriptive words instead of just V1, V2, etc… I have decided to simply use the labels as provided in the features.txt file. My script will simply remove the '()' characters from the original features. In my opinion, these words are already rather self-explanatory. Any attempt to come up with alternative labels would not provide addition information.
 
 The 3 tables 'measurements', 'activities' and 'volunteers' were column-binded to form a data set called test_data. This data set will later be combined with the data set created in Part II.
 
@@ -44,4 +44,4 @@ The script from Part I was essentially repeated for this folder files. The data 
 
 Both the data sets 'test_data' and 'train_data' were row-binded and melted down to form the tidy data set called 'data'. The final output is created using write.table() in the form of a text file called 'tinydata.txt'. 
 
-All further comments will be included in the remarks section in the R-script.
+More detailed explanations and comments are included in the remarks section in the R-script.
