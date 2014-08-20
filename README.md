@@ -1,3 +1,9 @@
+INTRODUCTION
+
+This depository is a project assignment for Coursera Getting and Cleaning Data course. The project consists of a R-script to extract the required data from a group of text files. The final output is  a tidy dataset in text format called tinydata.txt. 
+The CodeBook.md explains the structure of the final tidy dataset. 
+
+
 SUMMARY OF APPROACH 
 
 This script will read selected text files as into R as data.table formats to be combined and cleaned. There are 2 parts in this script. The first part involves files in folder 'test' and then follow by folder 'train' in part two. The resulting 2 data sets were then joined (using rbind() function) into a bigger data set as per assignment instructions. Finally, this data set were be melted down to produce a tiny data set of 5 columns.
